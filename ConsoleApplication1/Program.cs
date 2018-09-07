@@ -16,13 +16,13 @@ namespace ConsoleApplication1
 
         static void Main(string[] args)
         {
+            //static variables
             int baseValue = 90;
             int initialYCoord = 336;
             /*  int initialValue = 256;
               string startString = "256,336,51532,6,0,B";
               string endString = ",1,206640";  */
-            string output = null;
-            string points = null;
+
             string aaaa;
             int offset;
             int pointA;
@@ -34,9 +34,9 @@ namespace ConsoleApplication1
             int startHeight = 0;
             int endHeight = initialYCoord + 10 + 60; //60 for playfield compensation
             string scaleCommand;
-            StringBuilder OSBOutput = new StringBuilder();
+
             string moveCommand;
-            int duration = 800;
+            int approachTime = 800;
             float quarterBeat = 88.23529411764f;
             int timeOffset = 51532;
             float currentTime = timeOffset;
@@ -44,6 +44,12 @@ namespace ConsoleApplication1
 
             while (true)
             {
+
+                string output = null;
+                string points = null;
+
+                StringBuilder OSBOutput = new StringBuilder();
+
                 /*
                 Console.WriteLine("move along x or y?"); //always use x
                 string str = Console.ReadLine();
@@ -66,7 +72,7 @@ namespace ConsoleApplication1
                     initialYCoord = Co
                 }
                 */
-                Console.WriteLine("offset");
+                Console.WriteLine("offset and approach time");
 
                 do
                 {
@@ -75,7 +81,9 @@ namespace ConsoleApplication1
                     {
                         try
                         {
-                            offset = int.Parse(aaaa);
+                            string[] data = aaaa.Split(new char[0]);
+                            offset = int.Parse(data[0]);
+                            approachTime = int.Parse(data[1]);
                             pointB = lastPoint + offset;
 
                             /*  roundsUp = bool.Parse(((baseValue + offset) % 2).ToString());
@@ -108,13 +116,13 @@ namespace ConsoleApplication1
 
                             object1 = GetFruit();
                             scaleCommand = string.Format(" S,0,{0},,0.4318906", Math.Round(currentTime));
-                            moveCommand = string.Format(" M,0,{0},{1},{2},{3},{2},{4}", Math.Round(currentTime - duration), Math.Round(currentTime), (pointB + 60), startHeight, endHeight);
+                            moveCommand = string.Format(" M,0,{0},{1},{2},{3},{2},{4}", Math.Round(currentTime - approachTime), Math.Round(currentTime), (pointB + 60), startHeight, endHeight);
                             OSBOutput.AppendLine(object1);
                             OSBOutput.AppendLine(moveCommand);
                             OSBOutput.AppendLine(scaleCommand);
 
                         /*    if (directionX)
-                            { */Console.WriteLine("x = " + pointB + ", t = " + currentTime); /*}
+                            { */Console.WriteLine(string.Format("x = {0}, t = {1}, approach = {2}", pointB, currentTime, approachTime)); /*}
                             else
                             { Console.WriteLine("y = " + pointB + ", t = " + currentTime); }  */
 
@@ -130,12 +138,13 @@ namespace ConsoleApplication1
                 //output = startString + points + endString;
                 output = points;
                 Console.WriteLine(output);
-                File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\slider.txt", output);
+                //File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\slider.txt", output);
+                File.AppendAllText(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\slider.txt", output);
 
                 Console.WriteLine(OSBOutput);
-                File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\story.txt", OSBOutput.ToString());
+                //File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\story.txt", OSBOutput.ToString());
+                File.AppendAllText(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\story.txt", OSBOutput.ToString());
 
-                Console.Read();
                 Console.Read();
             }
         }
