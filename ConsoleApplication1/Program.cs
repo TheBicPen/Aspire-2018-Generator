@@ -40,7 +40,10 @@ namespace ConsoleApplication1
             float quarterBeat = 88.23529411764f;
             int timeOffset = 51532;
             float currentTime = timeOffset;
-          //  bool directionX;
+            //  bool directionX;
+
+            string storyFile = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\story.txt";
+            string sliderFile = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\slider.txt";
 
             while (true)
             {
@@ -64,6 +67,11 @@ namespace ConsoleApplication1
                 } */
                 Console.WriteLine("initial x value");
                 int lastPoint = int.Parse(Console.ReadLine());
+                Console.WriteLine("initial time (blank for default)");
+                string str = Console.ReadLine();
+                if(str != null)
+                { currentTime = float.Parse(str); }
+
                 /*
                 Console.WriteLine("initial y value (or blank for default)");
                 int lastPoint = int.Parse(Console.ReadLine());
@@ -136,16 +144,18 @@ namespace ConsoleApplication1
 
                 } while (aaaa != "f");
                 //output = startString + points + endString;
-                output = points;
+                output = points + Environment.NewLine;
+                OSBOutput.AppendLine();
                 Console.WriteLine(output);
                 //File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\slider.txt", output);
-                File.AppendAllText(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\slider.txt", output);
+                File.AppendAllText(sliderFile, output);
 
                 Console.WriteLine(OSBOutput);
                 //File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\story.txt", OSBOutput.ToString());
-                File.AppendAllText(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\story.txt", OSBOutput.ToString());
+                File.AppendAllText(storyFile, OSBOutput.ToString());
 
-                Console.Read();
+                Console.WriteLine(string.Format("output written to files {0} and {1}", sliderFile, storyFile));
+                Console.ReadLine();
             }
         }
 
