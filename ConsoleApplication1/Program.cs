@@ -44,7 +44,8 @@ namespace ConsoleApplication1
 
             while (true)
             {
-                Console.WriteLine("move along x or y?");
+                /*
+                Console.WriteLine("move along x or y?"); //always use x
                 string str = Console.ReadLine();
                 if(str == "x")
                 { directionX = true; }
@@ -54,7 +55,7 @@ namespace ConsoleApplication1
                 {
                     Console.WriteLine("nope");
                     break;
-                }
+                } */
                 Console.WriteLine("initial x value");
                 int lastPoint = int.Parse(Console.ReadLine());
                 /*
@@ -82,17 +83,17 @@ namespace ConsoleApplication1
                             //just use an even offset and basevalue
                             pointA = lastPoint + (baseValue + offset) / 2;
 
-                            if (directionX)
-                            {
+                        /*    if (directionX)
+                            { */
                                 stringA = string.Format("|{0}:{1}|{0}:{1}", pointA, initialYCoord);
                                 stringB = string.Format("|{0}:{1}|{0}:{1}", pointB, initialYCoord);
-                            }
+                         /*   }
                             else if (!directionX)
                             {
                                 stringA = string.Format("|{1}:{0}|{1}:{0}", pointA, initialYCoord);
                                 stringB = string.Format("|{1}:{0}|{1}:{0}", pointB, initialYCoord);
                             }
-                            else { break; }
+                            else { break; }   */
                             
 
                             /*
@@ -112,10 +113,10 @@ namespace ConsoleApplication1
                             OSBOutput.AppendLine(moveCommand);
                             OSBOutput.AppendLine(scaleCommand);
 
-                            if (directionX)
-                            { Console.WriteLine("x = " + pointB + ", t = " + currentTime); }
+                        /*    if (directionX)
+                            { */Console.WriteLine("x = " + pointB + ", t = " + currentTime); /*}
                             else
-                            { Console.WriteLine("y = " + pointB + ", t = " + currentTime); }
+                            { Console.WriteLine("y = " + pointB + ", t = " + currentTime); }  */
 
                         }
                         catch
