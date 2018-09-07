@@ -17,7 +17,7 @@ namespace ConsoleApplication1
         static void Main(string[] args)
         {
             int baseValue = 90;
-            int height = 336;
+            int initialYCoord = 336;
             /*  int initialValue = 256;
               string startString = "256,336,51532,6,0,B";
               string endString = ",1,206640";  */
@@ -32,7 +32,7 @@ namespace ConsoleApplication1
 
             string object1;   //see getfruit method for object1 info
             int startHeight = 0;
-            int endHeight = height + 10 + 60; //60 for playfield compensation
+            int endHeight = initialYCoord + 10 + 60; //60 for playfield compensation
             string scaleCommand;
             StringBuilder OSBOutput = new StringBuilder();
             string moveCommand;
@@ -56,7 +56,15 @@ namespace ConsoleApplication1
                     break;
                 }
                 Console.WriteLine("initial x value");
-                int lastpoint = int.Parse(Console.ReadLine());
+                int lastPoint = int.Parse(Console.ReadLine());
+                /*
+                Console.WriteLine("initial y value (or blank for default)");
+                int lastPoint = int.Parse(Console.ReadLine());
+                if (Console.ReadLine() != "")
+                {
+                    initialYCoord = Co
+                }
+                */
                 Console.WriteLine("offset");
 
                 do
@@ -67,25 +75,33 @@ namespace ConsoleApplication1
                         try
                         {
                             offset = int.Parse(aaaa);
-                            pointB = lastpoint + offset;
+                            pointB = lastPoint + offset;
 
                             /*  roundsUp = bool.Parse(((baseValue + offset) % 2).ToString());
                               if (roundsUp) {   } */
                             //just use an even offset and basevalue
-                            pointA = lastpoint + (baseValue + offset) / 2;
+                            pointA = lastPoint + (baseValue + offset) / 2;
 
-                            stringA = string.Format("|{0}:{1}|{0}:{1}", pointA, height);
-                            stringB = string.Format("|{0}:{1}|{0}:{1}", pointB, height);
+                            if (directionX)
+                            {
+                                stringA = string.Format("|{0}:{1}|{0}:{1}", pointA, initialYCoord);
+                                stringB = string.Format("|{0}:{1}|{0}:{1}", pointB, initialYCoord);
+                            }
+                            else if (!directionX)
+                            {
+                                stringA = string.Format("|{1}:{0}|{1}:{0}", pointA, initialYCoord);
+                                stringB = string.Format("|{1}:{0}|{1}:{0}", pointB, initialYCoord);
+                            }
+                            else { break; }
+                            
 
                             /*
                             stringA = '|' + pointA.ToString() + ':' + height + '|' + pointA + ':' + height; //string.format u retard??
                             stringB = '|' + pointB.ToString() + ':' + height + '|' + pointB + ':' + height;
                             */
 
-                            lastpoint = pointB;
+                            lastPoint = pointB;
                             points += stringA + stringB;
-
-
 
                             currentTime += quarterBeat;
 
@@ -96,7 +112,10 @@ namespace ConsoleApplication1
                             OSBOutput.AppendLine(moveCommand);
                             OSBOutput.AppendLine(scaleCommand);
 
-                            Console.WriteLine("x = " + pointB + ", t = " + currentTime);
+                            if (directionX)
+                            { Console.WriteLine("x = " + pointB + ", t = " + currentTime); }
+                            else
+                            { Console.WriteLine("y = " + pointB + ", t = " + currentTime); }
 
                         }
                         catch
