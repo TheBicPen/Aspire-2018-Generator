@@ -40,7 +40,7 @@ namespace ConsoleApplication1
             float quarterBeat = 88.23529411764f;
             int timeOffset = 51532;
             float currentTime = timeOffset;
-            bool directionX;
+          //  bool directionX;
 
             while (true)
             {
