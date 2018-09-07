@@ -9,7 +9,10 @@ namespace ConsoleApplication1
 {
     class Program
     {
-
+        /// <summary>
+        /// this program is trash and so am i
+        /// </summary>
+        /// <param name="args"></param>
 
         static void Main(string[] args)
         {
@@ -37,9 +40,21 @@ namespace ConsoleApplication1
             float quarterBeat = 88.23529411764f;
             int timeOffset = 51532;
             float currentTime = timeOffset;
+            bool directionX;
 
             while (true)
             {
+                Console.WriteLine("move along x or y?");
+                string str = Console.ReadLine();
+                if(str == "x")
+                { directionX = true; }
+                else if(str == "y")
+                { directionX = false; }
+                else
+                {
+                    Console.WriteLine("nope");
+                    break;
+                }
                 Console.WriteLine("initial x value");
                 int lastpoint = int.Parse(Console.ReadLine());
                 Console.WriteLine("offset");
@@ -59,9 +74,13 @@ namespace ConsoleApplication1
                             //just use an even offset and basevalue
                             pointA = lastpoint + (baseValue + offset) / 2;
 
+                            stringA = string.Format("|{0}:{1}|{0}:{1}", pointA, height);
+                            stringB = string.Format("|{0}:{1}|{0}:{1}", pointB, height);
 
+                            /*
                             stringA = '|' + pointA.ToString() + ':' + height + '|' + pointA + ':' + height; //string.format u retard??
                             stringB = '|' + pointB.ToString() + ':' + height + '|' + pointB + ':' + height;
+                            */
 
                             lastpoint = pointB;
                             points += stringA + stringB;
