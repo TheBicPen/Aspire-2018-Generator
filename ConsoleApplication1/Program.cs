@@ -69,8 +69,9 @@ namespace ConsoleApplication1
                 int lastPoint = int.Parse(Console.ReadLine());
                 Console.WriteLine("initial time (blank for default)");
                 string str = Console.ReadLine();
-                if(str != null)
+                if(str != "")
                 { currentTime = float.Parse(str); }
+                Console.WriteLine(currentTime);
 
                 /*
                 Console.WriteLine("initial y value (or blank for default)");
