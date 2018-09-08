@@ -16,12 +16,16 @@ namespace ConsoleApplication1
 
         static void Main(string[] args)
         {
+
+
             //static variables
             int baseValue = 90;
             int initialYCoord = 336;
             /*  int initialValue = 256;
               string startString = "256,336,51532,6,0,B";
               string endString = ",1,206640";  */
+
+            int lastPoint = initialYCoord;
 
             string aaaa;
             int offset;
@@ -67,7 +71,6 @@ namespace ConsoleApplication1
                 } */
                 Console.WriteLine("initial x value (blank for default)");
                 string str1 = Console.ReadLine();
-                int lastPoint;
                 if(str1 != "")
                 { lastPoint = int.Parse(str1); }
 
