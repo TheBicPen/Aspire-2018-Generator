@@ -65,8 +65,12 @@ namespace ConsoleApplication1
                     Console.WriteLine("nope");
                     break;
                 } */
-                Console.WriteLine("initial x value");
-                int lastPoint = int.Parse(Console.ReadLine());
+                Console.WriteLine("initial x value (blank for default)");
+                string str1 = Console.ReadLine();
+                int lastPoint;
+                if(str1 != "")
+                { lastPoint = int.Parse(str1); }
+
                 Console.WriteLine("initial time (blank for default)");
                 string str = Console.ReadLine();
                 if(str != "")
