@@ -32,7 +32,7 @@ namespace ConsoleApplication1
 
             string object1;   //see getfruit method for object1 info
             int startHeight = 0;
-            int endHeight = initialYCoord + 10 + 60; //60 for playfield compensation
+            int endHeight = initialYCoord - 10 + 60; //60 for playfield compensation
             string scaleCommand;
 
             string moveCommand;
@@ -97,7 +97,7 @@ namespace ConsoleApplication1
 
                             /*  roundsUp = bool.Parse(((baseValue + offset) % 2).ToString());
                               if (roundsUp) {   } */
-                            //just use an even offset and basevalue
+                            //just use an even offset and basevalue. problem solved.
                             pointA = lastPoint + (baseValue + offset) / 2;
 
                         /*    if (directionX)
