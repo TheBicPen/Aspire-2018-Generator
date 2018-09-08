@@ -14,20 +14,27 @@ namespace ConsoleApplication1
         /// </summary>
         /// <param name="args"></param>
 
+        static Random rnd;
+
         static void Main(string[] args)
         {
+            rnd = new Random();
 
+            bool fileMode;
+            if (args.Length != 0)
+            {  fileMode = true; }
+            else {  fileMode = false; }
 
-            //static variables
-            int baseValue = 90;
-            int initialYCoord = 336;
+                //static variables
+                int baseValue = 90;
+            int height = 336;
             /*  int initialValue = 256;
               string startString = "256,336,51532,6,0,B";
               string endString = ",1,206640";  */
 
-            int lastPoint = initialYCoord;
+            int lastPoint = 256;
 
-            string aaaa;
+            string aaaa = null;
             int offset;
             int pointA;
             int pointB;
@@ -36,7 +43,7 @@ namespace ConsoleApplication1
 
             string object1;   //see getfruit method for object1 info
             int startHeight = 0;
-            int endHeight = initialYCoord - 10 + 60; //60 for playfield compensation
+            int endHeight = height - 10 + 60; //60 for playfield compensation
             string scaleCommand;
 
             string moveCommand;
@@ -48,11 +55,6 @@ namespace ConsoleApplication1
 
             string storyFile = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\story.txt";
             string sliderFile = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\slider.txt";
-
-            if(args.Length != 0)
-            {
-
-            }
 
             while (true)
             {
@@ -74,31 +76,60 @@ namespace ConsoleApplication1
                     Console.WriteLine("nope");
                     break;
                 } */
-                Console.WriteLine("initial x value (blank for default)");
-                string str1 = Console.ReadLine();
-                if(str1 != "")
-                { lastPoint = int.Parse(str1); }
-                Console.WriteLine("x value = " + lastPoint);
 
-                Console.WriteLine("initial time (blank for default)");
-                string str = Console.ReadLine();
-                if(str != "")
-                { currentTime = float.Parse(str); }
-                Console.WriteLine("time = " + currentTime);
-
-                /*
-                Console.WriteLine("initial y value (or blank for default)");
-                int lastPoint = int.Parse(Console.ReadLine());
-                if (Console.ReadLine() != "")
+                StreamReader sr = null;
+                string line = null;
+                if (fileMode)
                 {
-                    initialYCoord = Co
+                    sr = new StreamReader(args[0]);
+                    lastPoint = int.Parse(sr.ReadLine());
+                    currentTime = float.Parse(sr.ReadLine());
                 }
-                */
-                Console.WriteLine("offset and approach time");
+                else
+                {
+                    Console.WriteLine("initial x value (blank for default)");
+                    string str1 = Console.ReadLine();
+                    if (str1 != "")
+                    { lastPoint = int.Parse(str1); }
+                    Console.WriteLine("x value = " + lastPoint);
+
+                    Console.WriteLine("initial time (blank for default)");
+                    string str = Console.ReadLine();
+                    if (str != "")
+                    { currentTime = float.Parse(str); }
+                    Console.WriteLine("time = " + currentTime);
+
+                    /*
+                    Console.WriteLine("initial y value (or blank for default)");
+                    int lastPoint = int.Parse(Console.ReadLine());
+                    if (Console.ReadLine() != "")
+                    {
+                        initialYCoord = Co
+                    }
+                    */
+                    Console.WriteLine("offset and approach time");
+                }
 
                 do
                 {
-                    aaaa = Console.ReadLine();
+                    if (fileMode)
+                    {
+                        line = sr.ReadLine();
+                        if (line != null)
+                        {
+                            aaaa = line;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+                    else
+                    {
+                        aaaa = Console.ReadLine();
+                    }
+
                     if (aaaa != "f")
                     {
                         try
@@ -115,8 +146,8 @@ namespace ConsoleApplication1
 
                         /*    if (directionX)
                             { */
-                                stringA = string.Format("|{0}:{1}|{0}:{1}", pointA, initialYCoord);
-                                stringB = string.Format("|{0}:{1}|{0}:{1}", pointB, initialYCoord);
+                                stringA = string.Format("|{0}:{1}|{0}:{1}", pointA, height);
+                                stringB = string.Format("|{0}:{1}|{0}:{1}", pointB, height);
                          /*   }
                             else if (!directionX)
                             {
@@ -158,15 +189,27 @@ namespace ConsoleApplication1
 
                 } while (aaaa != "f");
                 //output = startString + points + endString;
-                output = Environment.NewLine + points;
-                OSBOutput.Append(Environment.NewLine);
+
+
                 Console.WriteLine(output);
-                //File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\slider.txt", output);
-                File.AppendAllText(sliderFile, output);
+                if (!fileMode)
+                {
+                    output = Environment.NewLine + points;
+                    OSBOutput.Append(Environment.NewLine);
+                    OSBOutput.Append(Environment.NewLine);
+                    File.AppendAllText(sliderFile, output);
+                    File.AppendAllText(storyFile, OSBOutput.ToString());
+                }
+                else
+                {
+                    output = points;
+                    File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\slider.txt", output);
+                    File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\story.txt", OSBOutput.ToString());
+                    break;
+                }
 
                 Console.WriteLine(OSBOutput);
-                //File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\story.txt", OSBOutput.ToString());
-                File.AppendAllText(storyFile, OSBOutput.ToString());
+                
 
                 Console.WriteLine(string.Format("output written to files {0} and {1}", sliderFile, storyFile));
                 Console.ReadLine();
@@ -175,7 +218,7 @@ namespace ConsoleApplication1
 
         public static string GetFruit()
         {
-            Random rnd = new Random();
+            
             int fruitID = rnd.Next(0, 4);
             string fruitName;
             switch (fruitID)
