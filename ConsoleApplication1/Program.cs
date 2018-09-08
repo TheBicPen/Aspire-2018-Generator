@@ -49,6 +49,11 @@ namespace ConsoleApplication1
             string storyFile = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\story.txt";
             string sliderFile = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\slider.txt";
 
+            if(args.Length != 0)
+            {
+
+            }
+
             while (true)
             {
 
@@ -73,12 +78,13 @@ namespace ConsoleApplication1
                 string str1 = Console.ReadLine();
                 if(str1 != "")
                 { lastPoint = int.Parse(str1); }
+                Console.WriteLine("x value = " + lastPoint);
 
                 Console.WriteLine("initial time (blank for default)");
                 string str = Console.ReadLine();
                 if(str != "")
                 { currentTime = float.Parse(str); }
-                Console.WriteLine(currentTime);
+                Console.WriteLine("time = " + currentTime);
 
                 /*
                 Console.WriteLine("initial y value (or blank for default)");
@@ -152,8 +158,8 @@ namespace ConsoleApplication1
 
                 } while (aaaa != "f");
                 //output = startString + points + endString;
-                output = points + Environment.NewLine;
-                OSBOutput.AppendLine();
+                output = Environment.NewLine + points;
+                OSBOutput.Append(Environment.NewLine);
                 Console.WriteLine(output);
                 //File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\slider.txt", output);
                 File.AppendAllText(sliderFile, output);
