@@ -4,3 +4,9 @@ G:\Repos\ConsoleApplication1\ConsoleApplication1\bin\Release\ConsoleApplication1
 G:\Repos\ConsoleApplication1\ConsoleApplication1\obj\Release\ConsoleApplication1.csprojResolveAssemblyReference.cache
 G:\Repos\ConsoleApplication1\ConsoleApplication1\obj\Release\ConsoleApplication1.exe
 G:\Repos\ConsoleApplication1\ConsoleApplication1\obj\Release\ConsoleApplication1.pdb
+C:\Users\AA\Source\Repos\Aspire-2018-Generator\ConsoleApplication1\bin\Release\ConsoleApplication1.exe.config
+C:\Users\AA\Source\Repos\Aspire-2018-Generator\ConsoleApplication1\obj\Release\ConsoleApplication1.exe
+C:\Users\AA\Source\Repos\Aspire-2018-Generator\ConsoleApplication1\obj\Release\ConsoleApplication1.pdb
+C:\Users\AA\Source\Repos\Aspire-2018-Generator\ConsoleApplication1\bin\Release\ConsoleApplication1.exe
+C:\Users\AA\Source\Repos\Aspire-2018-Generator\ConsoleApplication1\bin\Release\ConsoleApplication1.pdb
+C:\Users\AA\Source\Repos\Aspire-2018-Generator\ConsoleApplication1\obj\Release\ConsoleApplication1.csprojResolveAssemblyReference.cache

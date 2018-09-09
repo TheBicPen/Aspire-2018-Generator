@@ -32,6 +32,97 @@ namespace ConsoleApplication1
               string startString = "256,336,51532,6,0,B";
               string endString = ",1,206640";  */
 
+            //i'm tired, fk this
+
+            string storyStartString = @"[Events]
+//Background and Video events
+//Storyboard Layer 0 (Background)
+Sprite,Background,Centre,""area.png"",320,240
+ M,0,-702,254146,320,400.01,320,400.01
+ V,0,50826,,4.170305,0.3367526
+//Storyboard Layer 1 (Fail)
+//Storyboard Layer 2 (Pass)
+//Storyboard Layer 3 (Foreground)
+";
+            string storyEndString = @"//Storyboard Sound Samples";
+            string mapStartString = @"osu file format v14
+
+[General]
+AudioFilename: audio.mp3
+AudioLeadIn: 0
+PreviewTime: -1
+Countdown: 1
+SampleSet: Soft
+StackLeniency: 0.5
+Mode: 0
+LetterboxInBreaks: 0
+SkinPreference:Aspire
+WidescreenStoryboard: 0
+
+[Editor]
+Bookmarks: 28238,34591,40944,51532,87532
+DistanceSpacing: 1.3
+BeatDivisor: 4
+GridSize: 16
+TimelineZoom: 0.8000001
+
+[Metadata]
+Title:Acid Rain
+TitleUnicode:Acid Rain
+Artist:Culprate
+ArtistUnicode:Culprate
+Creator:The Bic Pen
+Version:Normal
+Source:
+Tags:see has notes txt generated program script aspire catch the beat CtB 
+BeatmapID:0
+BeatmapSetID:-1
+
+[Difficulty]
+HPDrainRate:3.7
+CircleSize:6.9
+OverallDifficulty:0
+ApproachRate:0
+SliderMultiplier:3.6
+SliderTickRate:4
+
+[Events]
+//Background and Video events
+0,0,""BG.png"",0,0
+//Break Periods
+//Storyboard Layer 0 (Background)
+//Storyboard Layer 1 (Fail)
+//Storyboard Layer 2 (Pass)
+//Storyboard Layer 3 (Foreground)
+//Storyboard Sound Samples
+
+[TimingPoints]
+1415,352.941176470588,4,2,0,100,1,0
+1415,-100,4,2,0,5,0,0
+181439,352.941176470588,4,2,0,100,1,0
+182145,352.941176470588,4,2,0,100,1,0
+186539,352.941176470588,4,2,0,100,1,0
+187612,352.941176470588,4,2,0,100,1,0
+188214,352.941176470588,4,2,0,100,1,0
+188851,352.941176470588,4,2,0,100,1,0
+189203,352.941176470588,4,2,0,100,1,0
+190786,352.941176470588,4,2,0,100,1,0
+192021,352.941176470588,4,2,0,100,1,0
+197829,352.941176470588,4,2,0,100,1,0
+199064,352.941176470588,4,2,0,100,1,0
+200667,352.941176470588,4,2,0,100,1,0
+203314,352.941176470588,4,2,0,100,1,0
+208247,352.941176470588,4,2,0,100,1,0
+208952,352.941176470588,4,2,0,100,1,0
+220942,352.941176470588,4,2,0,100,1,0
+221304,352.941176470588,4,2,0,100,1,0
+221656,352.941176470588,4,2,0,100,1,0
+
+
+[HitObjects]
+256,336,51532,6,0,B"; 
+            string mapEndString = @",1,206640";
+
             int lastPoint = 256;
 
             string aaaa = null;
@@ -168,7 +259,7 @@ namespace ConsoleApplication1
                             currentTime += quarterBeat;
 
                             object1 = GetFruit();
-                            scaleCommand = string.Format(" S,0,{0},,0.4318906", Math.Round(currentTime));
+                            scaleCommand = string.Format(" S,0,{0},,0.4218906", Math.Round(currentTime));
                             moveCommand = string.Format(" M,0,{0},{1},{2},{3},{2},{4}", Math.Round(currentTime - approachTime), Math.Round(currentTime), (pointB + 60), startHeight, endHeight);
                             OSBOutput.AppendLine(object1);
                             OSBOutput.AppendLine(moveCommand);
@@ -201,10 +292,41 @@ namespace ConsoleApplication1
                     File.AppendAllText(storyFile, OSBOutput.ToString());
                 }
                 else
-                {
-                    output = points;
-                    File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\slider.txt", output);
-                    File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\story.txt", OSBOutput.ToString());
+                {/*
+                    StreamReader mapReader = new StreamReader(args[1]);
+                    StreamReader storyReader = new StreamReader(args[2]);
+                    do
+                    {
+                        string str = mapReader.ReadLine();
+
+                        if (str != @"[HitObjects]")
+                        { mapStartString += str; }
+                        else
+                        {
+                            mapStartString += str;
+                            do
+                            {
+                                str = mapReader.Read().ToString();
+                                if (str != "B")
+                                { mapStartString += str; }
+                                else
+                                {
+                                    mapStartString += str;
+                                    break;
+                                }
+
+                            } while (true);
+                            break;
+                        }
+                    } while (true);
+                    */
+                    output = mapStartString + points + mapEndString;
+                    OSBOutput.Insert(0, storyStartString);
+                    OSBOutput.Append(storyEndString);
+                    //  File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\slider.txt", output);
+                    //  File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\story.txt", OSBOutput.ToString());
+                    File.WriteAllText(args[1], output);
+                    File.WriteAllText(args[2], OSBOutput.ToString());
                     break;
                 }
 
