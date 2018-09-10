@@ -38,7 +38,7 @@ namespace ConsoleApplication1
 //Background and Video events
 //Storyboard Layer 0 (Background)
 Sprite,Background,Centre,""area.png"",320,240
- M,0,-702,254146,320,400.01,320,400.01
+ M,0,-702,254146,320,404.01,320,404.01
  V,0,50826,,4.170305,0.3367526
 //Storyboard Layer 1 (Fail)
 //Storyboard Layer 2 (Pass)
@@ -80,7 +80,7 @@ BeatmapSetID:-1
 
 [Difficulty]
 HPDrainRate:3.7
-CircleSize:6.9
+CircleSize:6.3 
 OverallDifficulty:0
 ApproachRate:0
 SliderMultiplier:3.6
@@ -139,9 +139,9 @@ SliderTickRate:4
 
             string moveCommand;
             int approachTime = 800;
-            float quarterBeat = 88.23529411764f;
+            double quarterBeat = 88.23529411764f;
             int timeOffset = 51532;
-            float currentTime = timeOffset;
+            double currentTime = timeOffset;
             //  bool directionX;
 
             string storyFile = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\story.txt";
@@ -174,7 +174,7 @@ SliderTickRate:4
                 {
                     sr = new StreamReader(args[0]);
                     lastPoint = int.Parse(sr.ReadLine());
-                    currentTime = float.Parse(sr.ReadLine());
+                    currentTime = double.Parse(sr.ReadLine());
                 }
                 else
                 {
@@ -187,7 +187,7 @@ SliderTickRate:4
                     Console.WriteLine("initial time (blank for default)");
                     string str = Console.ReadLine();
                     if (str != "")
-                    { currentTime = float.Parse(str); }
+                    { currentTime = double.Parse(str); }
                     Console.WriteLine("time = " + currentTime);
 
                     /*
@@ -259,8 +259,8 @@ SliderTickRate:4
                             currentTime += quarterBeat;
 
                             object1 = GetFruit();
-                            scaleCommand = string.Format(" S,0,{0},,0.4218906", Math.Round(currentTime));
-                            moveCommand = string.Format(" M,0,{0},{1},{2},{3},{2},{4}", Math.Round(currentTime - approachTime), Math.Round(currentTime), (pointB + 60), startHeight, endHeight);
+                            scaleCommand = string.Format(" S,0,{0},,0.43", Math.Round(currentTime, MidpointRounding.ToEven));
+                            moveCommand = string.Format(" M,0,{0},{1},{2},{3},{2},{4}", Math.Round(currentTime - approachTime, MidpointRounding.ToEven), Math.Round(currentTime, MidpointRounding.ToEven), (pointB + 90), startHeight, endHeight);
                             OSBOutput.AppendLine(object1);
                             OSBOutput.AppendLine(moveCommand);
                             OSBOutput.AppendLine(scaleCommand);
