@@ -34,9 +34,11 @@ namespace ConsoleApplication1
 
             //i'm tired, fk this
 
-            string storyStartString = @"[Events]
+            const string storyStartString = @"[Events]
 //Background and Video events
 //Storyboard Layer 0 (Background)
+Sprite,Background,Centre,""Black.png"",320,240
+ M,0,-702,254146,320,404.01
 Sprite,Background,Centre,""area.png"",320,240
  M,0,-702,254146,320,404.01,320,404.01
  V,0,50826,,4.170305,0.3367526
@@ -44,8 +46,8 @@ Sprite,Background,Centre,""area.png"",320,240
 //Storyboard Layer 2 (Pass)
 //Storyboard Layer 3 (Foreground)
 ";
-            string storyEndString = @"//Storyboard Sound Samples";
-            string mapStartString = @"osu file format v14
+            const string storyEndString = @"//Storyboard Sound Samples";
+            const string mapStartString = @"osu file format v14
 
 [General]
 AudioFilename: audio.mp3
@@ -72,15 +74,15 @@ TitleUnicode:Acid Rain
 Artist:Culprate
 ArtistUnicode:Culprate
 Creator:The Bic Pen
-Version:Normal
+Version:Catch the Beat
 Source:
 Tags:see has notes txt generated program script aspire catch the beat CtB 
 BeatmapID:0
 BeatmapSetID:-1
 
 [Difficulty]
-HPDrainRate:3.7
-CircleSize:6.3 
+HPDrainRate:1.7
+CircleSize:6.6 
 OverallDifficulty:0
 ApproachRate:0
 SliderMultiplier:3.6
@@ -88,7 +90,7 @@ SliderTickRate:4
 
 [Events]
 //Background and Video events
-0,0,""BG.png"",0,0
+0,0,""BG.jpg"",0,0
 //Break Periods
 //Storyboard Layer 0 (Background)
 //Storyboard Layer 1 (Fail)
@@ -99,24 +101,24 @@ SliderTickRate:4
 [TimingPoints]
 1415,352.941176470588,4,2,0,100,1,0
 1415,-100,4,2,0,5,0,0
-181439,352.941176470588,4,2,0,100,1,0
-182145,352.941176470588,4,2,0,100,1,0
-186539,352.941176470588,4,2,0,100,1,0
-187612,352.941176470588,4,2,0,100,1,0
-188214,352.941176470588,4,2,0,100,1,0
-188851,352.941176470588,4,2,0,100,1,0
-189203,352.941176470588,4,2,0,100,1,0
-190786,352.941176470588,4,2,0,100,1,0
-192021,352.941176470588,4,2,0,100,1,0
-197829,352.941176470588,4,2,0,100,1,0
-199064,352.941176470588,4,2,0,100,1,0
-200667,352.941176470588,4,2,0,100,1,0
-203314,352.941176470588,4,2,0,100,1,0
-208247,352.941176470588,4,2,0,100,1,0
-208952,352.941176470588,4,2,0,100,1,0
-220942,352.941176470588,4,2,0,100,1,0
-221304,352.941176470588,4,2,0,100,1,0
-221656,352.941176470588,4,2,0,100,1,0
+181439,-100,4,2,0,5,0,0
+182145,-100,4,2,0,5,0,0
+186539,-100,4,2,0,5,0,0
+187612,-100,4,2,0,5,0,0
+188214,-100,4,2,0,5,0,0
+188851,-100,4,2,0,5,0,0
+189203,-100,4,2,0,5,0,0
+190786,-100,4,2,0,5,0,0
+192021,-100,4,2,0,5,0,0
+197829,-100,4,2,0,5,0,0
+199064,-100,4,2,0,5,0,0
+200667,-100,4,2,0,5,0,0
+203314,-100,4,2,0,5,0,0
+208247,-100,4,2,0,5,0,0
+208952,-100,4,2,0,5,0,0
+220942,-100,4,2,0,5,0,0
+221304,-100,4,2,0,5,0,0
+221656,-100,4,2,0,5,0,0
 
 
 [HitObjects]
@@ -131,6 +133,8 @@ SliderTickRate:4
             int pointB;
             string stringA;
             string stringB;
+            string errors = "";
+            int counter = 0;
 
             string object1;   //see getfruit method for object1 info
             int startHeight = 0;
@@ -229,11 +233,13 @@ SliderTickRate:4
                             offset = int.Parse(data[0]);
                             approachTime = int.Parse(data[1]);
                             pointB = lastPoint + offset;
+                            counter++;
 
                             /*  roundsUp = bool.Parse(((baseValue + offset) % 2).ToString());
                               if (roundsUp) {   } */
                             //just use an even offset and basevalue. problem solved.
-                            pointA = lastPoint + (baseValue + offset) / 2;
+                            pointA = (int)(Math.Round(lastPoint + (baseValue + offset) / 2d));
+                            int distanceTravelled = Math.Abs(pointA - lastPoint) + Math.Abs(pointB - pointA);
 
                         /*    if (directionX)
                             { */
@@ -258,18 +264,19 @@ SliderTickRate:4
 
                             currentTime += quarterBeat;
 
-                            object1 = GetFruit();
-                            scaleCommand = string.Format(" S,0,{0},,0.43", Math.Round(currentTime, MidpointRounding.ToEven));
-                            moveCommand = string.Format(" M,0,{0},{1},{2},{3},{2},{4}", Math.Round(currentTime - approachTime, MidpointRounding.ToEven), Math.Round(currentTime, MidpointRounding.ToEven), (pointB + 90), startHeight, endHeight);
+                            object1 = GetFruit(int.Parse(data[2]));
+                            scaleCommand = string.Format(" S,0,{0},,0.43", Math.Round(currentTime, MidpointRounding.ToEven)); //I thought the rounding problem occurred here, but it was actually in pointA, hence the excessive rounding
+                            moveCommand = string.Format(" M,0,{0},{1},{2},{3},{2},{4}", Math.Round(currentTime - approachTime, MidpointRounding.ToEven), Math.Round(currentTime, MidpointRounding.ToEven), (pointB + 64), startHeight, endHeight); //64 for the 128px images
                             OSBOutput.AppendLine(object1);
                             OSBOutput.AppendLine(moveCommand);
                             OSBOutput.AppendLine(scaleCommand);
 
                         /*    if (directionX)
-                            { */Console.WriteLine(string.Format("x = {0}, t = {1}, approach = {2}", pointB, currentTime, approachTime)); /*}
+                            { */Console.WriteLine(string.Format("obj = {5} x = {0}, dx = {4} t = {1}, AR = {2}, dx Total = {3}", pointB, currentTime, approachTime, distanceTravelled, offset, counter)); /*}
                             else
                             { Console.WriteLine("y = " + pointB + ", t = " + currentTime); }  */
-
+                            if (pointB > 512 || pointB < 0)
+                            { errors += "Error: obj" + counter + " x=" + pointB + Environment.NewLine; }
                         }
                         catch
                         { Console.WriteLine("invalid number??"); }
@@ -283,6 +290,7 @@ SliderTickRate:4
 
 
                 Console.WriteLine(output);
+                Console.WriteLine(errors);
                 if (!fileMode)
                 {
                     output = Environment.NewLine + points;
@@ -327,6 +335,8 @@ SliderTickRate:4
                     //  File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\story.txt", OSBOutput.ToString());
                     File.WriteAllText(args[1], output);
                     File.WriteAllText(args[2], OSBOutput.ToString());
+                    sr.Dispose();
+                    Console.ReadLine();
                     break;
                 }
 
@@ -338,7 +348,7 @@ SliderTickRate:4
             }
         }
 
-        public static string GetFruit()
+        public static string GetFruit(int colour)
         {
             
             int fruitID = rnd.Next(0, 4);
@@ -346,18 +356,18 @@ SliderTickRate:4
             switch (fruitID)
             {
                 default:
-                case 0: fruitName = "fruit-apple.png";
+                case 0: fruitName = "fruit-apple" + colour + ".png";
                     break;
-                case 1: fruitName = "fruit-bananas.png";
+                case 1: fruitName = "fruit-bananas" + colour + ".png";
                     break;
                 case 2:
-                    fruitName = "fruit-grapes.png";
+                    fruitName = "fruit-grapes" + colour + ".png";
                     break;
                 case 3:
-                    fruitName = "fruit-orange.png";
+                    fruitName = "fruit-orange" + colour + ".png";
                     break;
                 case 4:
-                    fruitName = "fruit-pear.png";
+                    fruitName = "fruit-pear" + colour + ".png";
                     break;
             }
 

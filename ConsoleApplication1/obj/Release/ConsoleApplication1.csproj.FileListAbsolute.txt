@@ -10,3 +10,10 @@ C:\Users\AA\Source\Repos\Aspire-2018-Generator\ConsoleApplication1\obj\Release\C
 C:\Users\AA\Source\Repos\Aspire-2018-Generator\ConsoleApplication1\bin\Release\ConsoleApplication1.exe
 C:\Users\AA\Source\Repos\Aspire-2018-Generator\ConsoleApplication1\bin\Release\ConsoleApplication1.pdb
 C:\Users\AA\Source\Repos\Aspire-2018-Generator\ConsoleApplication1\obj\Release\ConsoleApplication1.csprojResolveAssemblyReference.cache
+D:\Users\AA\Source\Repos\Aspire-2018-Generator\ConsoleApplication1\obj\Release\ConsoleApplication1.csprojAssemblyReference.cache
+D:\Users\AA\Source\Repos\Aspire-2018-Generator\ConsoleApplication1\obj\Release\ConsoleApplication1.csproj.CoreCompileInputs.cache
+D:\Users\AA\Source\Repos\Aspire-2018-Generator\ConsoleApplication1\obj\Release\ConsoleApplication1.exe
+D:\Users\AA\Source\Repos\Aspire-2018-Generator\ConsoleApplication1\obj\Release\ConsoleApplication1.pdb
+D:\Users\AA\Source\Repos\Aspire-2018-Generator\ConsoleApplication1\bin\Release\ConsoleApplication1.exe.config
+D:\Users\AA\Source\Repos\Aspire-2018-Generator\ConsoleApplication1\bin\Release\ConsoleApplication1.exe
+D:\Users\AA\Source\Repos\Aspire-2018-Generator\ConsoleApplication1\bin\Release\ConsoleApplication1.pdb
