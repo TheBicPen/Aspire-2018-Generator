@@ -210,6 +210,7 @@ SliderTickRate:4
                     Console.WriteLine("offset and approach time");
                 }
 
+                int desync = 0;
                 do
                 {
                     if (fileMode)
@@ -244,10 +245,10 @@ SliderTickRate:4
                             /*  roundsUp = bool.Parse(((baseValue + offset) % 2).ToString());
                               if (roundsUp) {   } */
                             //just use an even offset and basevalue. problem solved.
-                            pointA = (int)Math.Round(lastPoint + (baseValue + offset) / 2d);
+                            pointA = (int)Math.Round(lastPoint + (baseValue + offset) / 2d) - desync;
                             int distanceTravelled = Math.Abs(pointA - lastPoint) + Math.Abs(pointB - pointA);
-                            int desync = 90 - distanceTravelled;
-                            pointA -= desync;
+                            desync += 90 - distanceTravelled;
+
                             #region directionX
                             /*    if (directionX)
                                 { */
@@ -279,7 +280,8 @@ SliderTickRate:4
                             /*    if (directionX)
                                 { */
                             #endregion
-                            Console.WriteLine(string.Format("obj = {5} x = {0}, dx = {4} t = {1}, AR = {2}, dx Total = {3}", pointB, currentTime, approachTime, distanceTravelled, offset, counter));
+                            Console.WriteLine(string.Format("obj = {5} x = {0}, dx = {4} t = {1}, AR = {2}, dx Total = {3}, desync = {6}", pointB, currentTime, approachTime, distanceTravelled, offset, counter, desync));
+                            desync -= desync; //200iq
                             #region directionX
                             /*}
                             else
